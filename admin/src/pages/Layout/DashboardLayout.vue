@@ -2,8 +2,16 @@
   <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
     <notifications></notifications>
 
-    <side-bar>
+    <side-bar v-if="isLoggedIn">
       <mobile-menu slot="content"></mobile-menu>
+      <sidebar-link to="/dashboard">
+        <md-icon>dashboard</md-icon>
+        <p>Pagrindinis</p>
+      </sidebar-link>
+      <sidebar-link to="/vartotojai">
+        <md-icon>person</md-icon>
+        <p>Vartotojai</p>
+      </sidebar-link>
       <sidebar-link to="/dashboard">
         <md-icon>dashboard</md-icon>
         <p>Dashboard</p>
@@ -24,26 +32,18 @@
         <md-icon>bubble_chart</md-icon>
         <p>Icons</p>
       </sidebar-link>
-      <sidebar-link to="/maps">
-        <md-icon>location_on</md-icon>
-        <p>Maps</p>
-      </sidebar-link>
       <sidebar-link to="/notifications">
         <md-icon>notifications</md-icon>
         <p>Notifications</p>
       </sidebar-link>
-      <sidebar-link to="/upgrade" class="active-pro">
-        <md-icon>unarchive</md-icon>
-        <p>Upgrade to PRO</p>
-      </sidebar-link>
     </side-bar>
 
-    <div class="main-panel">
-      <top-navbar></top-navbar>
+    <div v-bind:class="{'main-panel':isLoggedIn}">
+      <top-navbar v-if="isLoggedIn"></top-navbar>
 
-      <dashboard-content> </dashboard-content>
+      <dashboard-content></dashboard-content>
 
-      <content-footer v-if="!$route.meta.hideFooter"></content-footer>
+      <content-footer v-if="isLoggedIn"></content-footer>
     </div>
   </div>
 </template>
@@ -60,6 +60,16 @@ export default {
     DashboardContent,
     ContentFooter,
     MobileMenu
+  },
+  computed: {
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    },
+    show: function() {
+      this.logged = this.isLoggedIn;
+      this.hide = !this.$route.meta.hideFooter;
+      return this.logged || this.hide;
+    }
   }
 };
 </script>

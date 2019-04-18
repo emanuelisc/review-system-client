@@ -1,65 +1,164 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import Dashboard from "@/pages/Dashboard.vue";
-import UserProfile from "@/pages/UserProfile.vue";
 import TableList from "@/pages/TableList.vue";
 import Typography from "@/pages/Typography.vue";
 import Icons from "@/pages/Icons.vue";
-import Maps from "@/pages/Maps.vue";
 import Notifications from "@/pages/Notifications.vue";
-import UpgradeToPRO from "@/pages/UpgradeToPRO.vue";
+import Login from "@/views/Login.vue";
+import Users from "@/views/Users/Users.vue";
+import UserDetails from "@/views/Users/UserDetails.vue";
+import UserForm from "@/views/Users/UserForm.vue";
+import Pages from "@/views/Pages/Pages";
+import PageDetails from "@/views/Pages/PageDetails";
+import PageForm from "@/views/Pages/PageForm";
+import About from "@/views/About.vue";
 
 const routes = [
-  {
-    path: "/",
-    component: DashboardLayout,
-    redirect: "/dashboard",
-    children: [
-      {
-        path: "dashboard",
-        name: "Dashboard",
-        component: Dashboard
-      },
-      {
-        path: "user",
-        name: "User Profile",
-        component: UserProfile
-      },
-      {
-        path: "table",
-        name: "Table List",
-        component: TableList
-      },
-      {
-        path: "typography",
-        name: "Typography",
-        component: Typography
-      },
-      {
-        path: "icons",
-        name: "Icons",
-        component: Icons
-      },
-      {
-        path: "maps",
-        name: "Maps",
-        meta: {
-          hideFooter: true
-        },
-        component: Maps
-      },
-      {
-        path: "notifications",
-        name: "Notifications",
-        component: Notifications
-      },
-      {
-        path: "upgrade",
-        name: "Upgrade to PRO",
-        component: UpgradeToPRO
-      }
-    ]
-  }
+    {
+        path: "/",
+        component: DashboardLayout,
+        redirect: "/dashboard",
+        children: [
+            {
+                path: "dashboard",
+                name: "Dashboard",
+                component: Dashboard,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Pagrindinis'
+                }
+            },
+            {
+                path: "pagrindinis",
+                name: "pagrindinis",
+                component: Dashboard,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Pagrindinis'
+                }
+            },
+            {
+                path: "vartotojai",
+                name: "user-list",
+                component: Users,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Visi vartotojai'
+                }
+            },
+            {
+                path: 'vartotojai/:id',
+                name: 'user-info',
+                component: UserDetails,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Vartotojo informacija'
+                }
+            },
+            {
+                path: 'vartotojai/:id/redaguoti',
+                name: 'user-edit',
+                component: UserForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Redaguoti vartotoją'
+                }
+            },
+            {
+                path: 'vartotojai/naujas',
+                name: 'user-new',
+                component: UserForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Naujas vartotojas'
+                }
+            },
+            {
+                path: "puslapiai",
+                name: "page-list",
+                component: Pages,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Visi puslapiai'
+                }
+            },
+            {
+                path: 'puslapiai/:id',
+                name: 'page-info',
+                component: PageDetails,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Puslapio informacija'
+                }
+            },
+            {
+                path: 'puslapiai/:id/redaguoti',
+                name: 'page-edit',
+                component: PageForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Redaguoti puslapį'
+                }
+            },
+            {
+                path: 'puslapiai/naujas',
+                name: 'page-new',
+                component: PageForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Naujas puslapis'
+                }
+            },
+            {
+                path: "table",
+                name: "Table List",
+                component: TableList,
+                meta: {
+                    requiresAuth: true
+                }
+            },
+            {
+                path: "typography",
+                name: "Typography",
+                component: Typography,
+                meta: {
+                    requiresAuth: true
+                }
+            },
+            {
+                path: "icons",
+                name: "Icons",
+                component: Icons,
+                meta: {
+                    requiresAuth: true
+                }
+            },
+            {
+                path: "notifications",
+                name: "Notifications",
+                component: Notifications,
+                meta: {
+                    requiresAuth: true
+                }
+            },
+            {
+                path: "login",
+                name: "Login",
+                component: Login
+            },
+            // {
+            //     path: "register",
+            //     name: "Register",
+            //     component: Register
+            // },
+            {
+                path: "about",
+                name: "About",
+                component: About
+            },
+        ]
+    }
 ];
 
 export default routes;

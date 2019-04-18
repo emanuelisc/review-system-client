@@ -7,6 +7,9 @@ import StatsCard from "./Cards/StatsCard.vue";
 import NavTabsTable from "./Tables/NavTabsTable.vue";
 import OrderedTable from "./Tables/OrderedTable.vue";
 import SimpleTable from "./Tables/SimpleTable.vue";
+import UserAdminList from "./Users/UserAdminList.vue";
+import UserCard from "./Users/UserCard.vue";
+import UserForm from "./Users/UserForm.vue";
 
 export {
   ChartCard,
@@ -14,5 +17,8 @@ export {
   StatsCard,
   NavTabsTable,
   OrderedTable,
-  SimpleTable
+  SimpleTable,
+  UserAdminList,
+  UserCard,
+  UserForm
 };
