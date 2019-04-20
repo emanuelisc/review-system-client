@@ -12,9 +12,9 @@
         <md-icon>person</md-icon>
         <p>Vartotojai</p>
       </sidebar-link>
-      <sidebar-link to="/dashboard">
-        <md-icon>dashboard</md-icon>
-        <p>Dashboard</p>
+      <sidebar-link to="/puslapiai">
+        <md-icon>library_books</md-icon>
+        <p>Puslapiai</p>
       </sidebar-link>
       <sidebar-link to="/user">
         <md-icon>person</md-icon>

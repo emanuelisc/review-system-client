@@ -13,6 +13,9 @@ import GlobalComponents from "./globalComponents";
 import GlobalDirectives from "./globalDirectives";
 import Notifications from "./components/NotificationPlugin";
 
+// WYSIWYG text editor
+import CKEditor from '@ckeditor/ckeditor5-vue';
+
 // MaterialDashboard plugin
 import MaterialDashboard from "./material-dashboard";
 
@@ -37,7 +40,6 @@ router.beforeEach((to, from, next) => {
 })
 
 Vue.prototype.$Chartist = Chartist;
-Vue.prototype.$apiUrl = "http://localhost:8000/api/"
 
 Vue.prototype.$http = Axios;
 const token = localStorage.getItem('token')
@@ -50,13 +52,14 @@ Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(Notifications);
+Vue.use( CKEditor );
 /* eslint-disable no-new */
 
 new Vue({
     el: "#app",
-    render: h => h(App),
-    router,
     store,
+    router,
+    render: h => h(App),
     data: {
         Chartist: Chartist
     }

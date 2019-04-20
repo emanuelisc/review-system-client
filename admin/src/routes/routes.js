@@ -10,9 +10,9 @@ import Users from "@/views/Users/Users.vue";
 import UserDetails from "@/views/Users/UserDetails.vue";
 import UserForm from "@/views/Users/UserForm.vue";
 import Pages from "@/views/Pages/Pages";
-import PageDetails from "@/views/Pages/PageDetails";
 import PageForm from "@/views/Pages/PageForm";
 import About from "@/views/About.vue";
+import { PageList } from "@/components";
 
 const routes = [
     {
@@ -81,15 +81,6 @@ const routes = [
                 meta: {
                     requiresAuth: true,
                     title: 'Visi puslapiai'
-                }
-            },
-            {
-                path: 'puslapiai/:id',
-                name: 'page-info',
-                component: PageDetails,
-                meta: {
-                    requiresAuth: true,
-                    title: 'Puslapio informacija'
                 }
             },
             {

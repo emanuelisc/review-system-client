@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="md-layout">
-      <div class="md-layout-item md-medium-size-100 md-size-33">
+      <div class="md-layout-item md-medium-size-100 md-size-100">
         <md-button @click="goBack()" class="md-ripple md-primary btn-width">Į sąrašą</md-button>
         <user-card></user-card>
       </div>

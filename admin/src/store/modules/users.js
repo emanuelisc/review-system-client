@@ -14,10 +14,8 @@ const getters = {
 const actions = {
     async fetchUsers({
         commit
-    }) {
-        const response = await axios.get('user/admin/users/');
-
-        commit('setUsers', response.data);
+    }, users) {
+        commit('setUsers', users);
     },
     async getUser({
         commit
