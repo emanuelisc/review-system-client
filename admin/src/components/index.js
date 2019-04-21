@@ -11,7 +11,9 @@ import UserAdminList from "./Users/UserAdminList.vue";
 import UserCard from "./Users/UserCard.vue";
 import UserForm from "./Users/UserForm.vue";
 import PageList from "./Pages/PageList.vue";
+import TicketList from "./Tickets/TicketList.vue";
 import PageForm from "./Pages/PageForm.vue";
+import TicketForm from "./Tickets/TicketForm.vue";
 
 export {
   ChartCard,
@@ -24,5 +26,7 @@ export {
   UserCard,
   UserForm,
   PageList,
-  PageForm
+  PageForm,
+  TicketList,
+  TicketForm
 };

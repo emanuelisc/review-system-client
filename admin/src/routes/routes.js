@@ -9,10 +9,11 @@ import Login from "@/views/Login.vue";
 import Users from "@/views/Users/Users.vue";
 import UserDetails from "@/views/Users/UserDetails.vue";
 import UserForm from "@/views/Users/UserForm.vue";
+import Tickets from "@/views/Tickets/Tickets";
+import TicketForm from "@/views/Tickets/TicketForm";
 import Pages from "@/views/Pages/Pages";
 import PageForm from "@/views/Pages/PageForm";
 import About from "@/views/About.vue";
-import { PageList } from "@/components";
 
 const routes = [
     {
@@ -81,6 +82,24 @@ const routes = [
                 meta: {
                     requiresAuth: true,
                     title: 'Visi puslapiai'
+                }
+            },
+            {
+                path: "pranesimai",
+                name: "ticket-list",
+                component: Tickets,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Visi pranešimai'
+                }
+            },
+            {
+                path: 'pranesimai/:id/',
+                name: 'page-details',
+                component: TicketForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Pranešimo informacija'
                 }
             },
             {

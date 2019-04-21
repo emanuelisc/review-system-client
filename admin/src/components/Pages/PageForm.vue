@@ -112,10 +112,7 @@ export default {
         form_data.append("image", this.selectedFile, this.selectedFile.name);
       }
       axios
-        .patch(`page/pages/${this.$route.params.id}/`, {
-          id: this.$route.params.id,
-          param: object
-        })
+        .patch(`page/pages/${this.$route.params.id}/`, object)
         .then(response => {
           this.$store
             .dispatch("updatePage", { id: response.data.id, param: form_data })

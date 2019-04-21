@@ -16,9 +16,9 @@
         <md-icon>library_books</md-icon>
         <p>Puslapiai</p>
       </sidebar-link>
-      <sidebar-link to="/user">
-        <md-icon>person</md-icon>
-        <p>User Profile</p>
+      <sidebar-link to="/pranesimai">
+        <md-icon>notification_important</md-icon>
+        <p>Pranešimai</p>
       </sidebar-link>
       <sidebar-link to="/table">
         <md-icon>content_paste</md-icon>
