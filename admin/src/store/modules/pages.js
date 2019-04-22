@@ -9,28 +9,41 @@ const state = {
 
 const getters = {
     allPages: state => state.pages,
-    allCategories: state => state.categories,
-    onePage: state => state.page
+    allPageCategories: state => state.categories,
+    onePage: state => state.page,
+    oneCategory: state => state.category
 };
 
 const actions = {
     fetchPages({ commit }, pages) {
         commit('setPages', pages);
     },
-    fetchCats({ commit }, categories) {
+    fetchPageCats({ commit }, categories) {
         commit('setCats', categories);
     },
     getPage({ commit }, page) {
         commit('getPage', page);
     },
+    getCategory({ commit }, category) {
+        commit('getCategory', category);
+    },
     addPage({ commit }, page) {
         commit('newPage', page);
+    },
+    addCategory({ commit }, category) {
+        commit('newCategory', category);
     },
     async deletePage({
         commit
     }, id) {
         await axios.delete(`page/pages/${id}/`);
         commit('removePage', id);
+    },
+    async deleteCategory({
+        commit
+    }, id) {
+        await axios.delete(`page/categories/${id}/`);
+        commit('removeCategory', id);
     },
     async filterPages({
         commit
@@ -59,8 +72,11 @@ const mutations = {
     setPages: (state, pages) => (state.pages = pages),
     setCats: (state, categories) => (state.categories = categories),
     getPage: (state, page) => (state.page = page),
+    getCategory: (state, category) => (state.category = category),
     newPage: (state, page) => state.pages.unshift(page),
+    newCategory: (state, category) => state.categories.unshift(category),
     removePage: (state, id) => state.pages = state.pages.filter(page => page.id !== id),
+    removeCategory: (state, id) => state.categories = state.categories.filter(category => category.id !== id),
     updatePage: (state, updPage) => {
         const index = state.pages.findIndex(page => page.id === updPage.id)
         if (index !== -1) {

@@ -76,7 +76,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["getPage", "fetchCats", "addPage"]),
+    ...mapActions(["getPage", "fetchPageCats", "addPage"]),
     notifyVue(message, type) {
       this.$notify({
         message: message,
@@ -169,7 +169,7 @@ export default {
         .get("page/categories/")
         .then(res => {
           this.cats = res.data;
-          this.fetchCats(this.cats);
+          this.fetchPageCats(this.cats);
         })
         .catch(err => {
           this.notifyVue("Nepavyko gauti kategorijų sąrašo.", "danger");
@@ -177,17 +177,17 @@ export default {
         });
     }
   },
-  computed: mapGetters(["onePage", "allCategories"]),
+  computed: mapGetters(["onePage", "allPageCategories"]),
   created() {
     if (this.$route.name != "page-new") {
       this.getData();
       this.page = this.onePage;
       this.selected = this.onePage.categories;
     }
-    if (this.allCategories.length <= 0) {
+    if (this.allPageCategories.length <= 0) {
       this.getCats();
     }
-    this.cats = this.allCategories;
+    this.cats = this.allPageCategories;
   },
   data() {
     return {

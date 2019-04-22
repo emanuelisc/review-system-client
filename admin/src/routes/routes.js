@@ -13,6 +13,8 @@ import Tickets from "@/views/Tickets/Tickets";
 import TicketForm from "@/views/Tickets/TicketForm";
 import Pages from "@/views/Pages/Pages";
 import PageForm from "@/views/Pages/PageForm";
+import PageCats from "@/views/Pages/Categories/PageCats";
+import PageCatForm from "@/views/Pages/Categories/PageCatForm";
 import About from "@/views/About.vue";
 
 const routes = [
@@ -100,6 +102,33 @@ const routes = [
                 meta: {
                     requiresAuth: true,
                     title: 'Pranešimo informacija'
+                }
+            },
+            {
+                path: 'puslapiai/kategorijos',
+                name: 'page-cat-list',
+                component: PageCats,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Puslapių kategorijų sąrašas'
+                }
+            },
+            {
+                path: 'puslapiai/kategorijos/naujas',
+                name: 'page-cat-new',
+                component: PageCatForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Pridėti puslapių kategoriją'
+                }
+            },
+            {
+                path: 'puslapiai/kategorijos/:id/',
+                name: 'page-cat-edit',
+                component: PageCatForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Redaguoti kategoriją'
                 }
             },
             {

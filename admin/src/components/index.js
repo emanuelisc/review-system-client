@@ -14,6 +14,8 @@ import PageList from "./Pages/PageList.vue";
 import TicketList from "./Tickets/TicketList.vue";
 import PageForm from "./Pages/PageForm.vue";
 import TicketForm from "./Tickets/TicketForm.vue";
+import PageCatForm from "./Pages/Categories/PageCatForm.vue";
+import PageCatList from "./Pages/Categories/PageCatList.vue";
 
 export {
   ChartCard,
@@ -28,5 +30,7 @@ export {
   PageList,
   PageForm,
   TicketList,
-  TicketForm
+  TicketForm,
+  PageCatForm,
+  PageCatList
 };

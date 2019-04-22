@@ -3,24 +3,24 @@
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-size-100">
         <md-button @click="goToList()" class="md-ripple md-primary btn-width">Į sąrašą</md-button>
-        <page-form></page-form>
+        <page-cat-form></page-cat-form>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { PageForm } from "@/components";
+import { PageCatForm } from "@/components";
 import { mapActions } from "vuex";
 
 export default {
   components: {
-    PageForm
+    PageCatForm
   },
   methods: {
     goToList() {
       this.$router.push({
-        name: "page-list"
+        name: "page-cat-list"
       });
     }
   }

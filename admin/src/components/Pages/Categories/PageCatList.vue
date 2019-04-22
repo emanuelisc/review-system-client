@@ -15,28 +15,10 @@
       <md-table-empty-state md-label="Nieko nerasta!"></md-table-empty-state>
       <md-table-row slot="md-table-row" slot-scope="{ item }" class="conditional">
         <md-table-cell md-label="ID" md-numeric>{{ item.id }}</md-table-cell>
-        <md-table-cell md-label="Pavadinimas" md-sort-by="title">{{ item.title }}</md-table-cell>
-        <md-table-cell
-          md-label="Data"
-          md-sort-by="date"
-        >{{ item.date }}</md-table-cell>
-        <md-table-cell md-label="Kategorijos">
-          <md-list>
-            <!-- <md-list-item :key="category" v-for="category in item.categories"><span :key="cat.id" v-for="cat in cats" v-if="cat.id === category">{{ cat.name }}</span></md-list-item> -->
-            <md-list-item
-              :key="cat.id"
-              v-for="cat in cats.filter(function(cate) {
-                return item.categories.includes(cate.id);
-                })"
-            >
-              <h6>{{ cat.name }}</h6>
-            </md-list-item>
-          </md-list>
-        </md-table-cell>
+        <md-table-cell md-label="Pavadinimas" md-sort-by="name">{{ item.name }}</md-table-cell>
         <md-table-cell md-label="Redaguoti">
           <md-button @click="details(item.id)" class="md-just-icon md-simple md-primary fixed-btn">
             <md-icon>edit</md-icon>
-            <md-tooltip md-direction="top">Edit</md-tooltip>
           </md-button>
         </md-table-cell>
       </md-table-row>
@@ -65,10 +47,10 @@ const searchByName = (items, term) => {
 };
 
 export default {
-  name: "page-list",
-  computed: mapGetters(["allPages", "allPageCategories"]),
+  name: "page-cat-list",
+  computed: mapGetters(["allPageCategories"]),
   methods: {
-    ...mapActions(["fetchPages", "fetchPageCats"]),
+    ...mapActions(["fetchPageCats"]),
     notifyVue(message, type) {
       this.$notify({
         message,
@@ -80,7 +62,7 @@ export default {
     },
     details(id) {
       this.$router.push({
-        name: "page-edit",
+        name: "page-cat-edit",
         params: { id }
       });
     },
@@ -95,27 +77,14 @@ export default {
       });
     },
     searchName() {
-      this.searched = searchByName(this.allPages, this.search);
-    },
-    forceRerender() {
-      this.$emit("data");
+      this.searched = searchByName(this.allPageCategories, this.search);
     },
     getData() {
       axios
-        .get("page/pages/")
+        .get("page/categories/")
         .then(response => {
           this.searched = response.data;
-          this.fetchPages(response.data);
-        })
-        .catch(err => {
-          this.notifyVue("Nepavyko gauti puslapių sąrašo.", "danger");
-          console.log(err);
-        });
-      axios
-        .get("page/categories/")
-        .then(res => {
-          this.cats = res.data;
-          this.fetchPageCats(this.cats);
+          this.fetchPageCats(response.data);
         })
         .catch(err => {
           this.notifyVue("Nepavyko gauti kategorijų sąrašo.", "danger");
@@ -124,14 +93,13 @@ export default {
     }
   },
   created() {
-    if (this.allPages.length == 0) {
+    if (this.allPageCategories.length == 0) {
       this.getData();
       console.log("Zero");
     } else {
       console.log("Ok");
     }
-    this.searched = this.allPages;
-    this.cats = this.allPageCategories;
+    this.searched = this.allPageCategories;
     // this.fetchPages(this.searched);
   },
   props: {
@@ -144,8 +112,7 @@ export default {
     currentSort: "id",
     currentSortOrder: "asc",
     search: null,
-    searched: [],
-    cats: {}
+    searched: []
   })
 };
 </script>
