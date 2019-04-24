@@ -1,38 +1,26 @@
 <template>
   <ul class="nav nav-mobile-menu">
     <li>
-      <md-field>
-        <label>Search</label>
-        <md-input v-model="search" type="text"></md-input>
-      </md-field>
-    </li>
-    <li>
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <i class="material-icons">dashboard</i>
-        <p>Dashboard</p></a
-      >
+        <p>Dashboard</p>
+      </a>
     </li>
     <li>
       <drop-down>
-        <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
-          <i class="material-icons">notifications</i>
-          <span class="notification">5</span>
-          <p>Notifications</p>
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+          <i class="material-icons">person</i>
+          <p>Profilis</p>
         </a>
         <ul class="dropdown-menu dropdown-menu-right">
-          <li><a href="#">Mike John responded to your email</a></li>
-          <li><a href="#">You have 5 new tasks</a></li>
-          <li><a href="#">You're now friend with Andrew</a></li>
-          <li><a href="#">Another Notification</a></li>
-          <li><a href="#">Another One</a></li>
+          <li>
+            <a href="#">Admin Nustatymai</a>
+          </li>
+          <li>
+            <a href="#" @click="logout">Atsijungti</a>
+          </li>
         </ul>
       </drop-down>
-    </li>
-    <li>
-      <a href="#" data-toggle="dropdown" class="dropdown-toggle"
-        ><i class="material-icons">person</i>
-        <p>Profile</p></a
-      >
     </li>
   </ul>
 </template>
@@ -41,18 +29,15 @@ export default {
   data() {
     return {
       search: null,
-      selectedEmployee: null,
-      employees: [
-        "Jim Halpert",
-        "Dwight Schrute",
-        "Michael Scott",
-        "Pam Beesly",
-        "Angela Martin",
-        "Kelly Kapoor",
-        "Ryan Howard",
-        "Kevin Malone"
-      ]
+      selectedEmployee: null
     };
+  },
+  methods: {
+    logout: function() {
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/login");
+      });
+    }
   }
 };
 </script>

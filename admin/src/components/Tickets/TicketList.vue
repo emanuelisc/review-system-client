@@ -94,18 +94,18 @@ export default {
       axios
         .get("ticket/admin/")
         .then(response => {
-          this.searched = response.data;
-          this.fetchTickets(response.data);
+          this.searched = response.data.results;
+          this.fetchTickets(response.data).results;
         })
         .catch(err => {
           this.notifyVue("Nepavyko gauti pranešimų sąrašo.", "danger");
           console.log(err);
         });
       axios
-        .get("user/admin/users/")
+        .get("user/admin/users/?limit=10000")
         .then(response => {
-          this.users = response.data;
-          this.fetchUsers(response.data);
+          this.users = response.data.results;
+          this.fetchUsers(response.data.results);
         })
         .catch(err => {
           this.notifyVue("Nepavyko gauti vartotojų sąrašo.", "danger");

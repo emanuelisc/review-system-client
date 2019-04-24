@@ -104,17 +104,17 @@ export default {
       axios
         .get("page/pages/")
         .then(response => {
-          this.searched = response.data;
-          this.fetchPages(response.data);
+          this.searched = response.data.results;
+          this.fetchPages(response.data.results);
         })
         .catch(err => {
           this.notifyVue("Nepavyko gauti puslapių sąrašo.", "danger");
           console.log(err);
         });
       axios
-        .get("page/categories/")
+        .get("page/categories/?limit=10000")
         .then(res => {
-          this.cats = res.data;
+          this.cats = res.data.results;
           this.fetchPageCats(this.cats);
         })
         .catch(err => {

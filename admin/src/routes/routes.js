@@ -15,6 +15,10 @@ import Pages from "@/views/Pages/Pages";
 import PageForm from "@/views/Pages/PageForm";
 import PageCats from "@/views/Pages/Categories/PageCats";
 import PageCatForm from "@/views/Pages/Categories/PageCatForm";
+import Providers from "@/views/Providers/Providers";
+import ProviderForm from "@/views/Providers/ProviderForm";
+import ProviderCats from "@/views/Providers/Categories/ProviderCats";
+import ProviderCatForm from "@/views/Providers/Categories/ProviderCatForm";
 import About from "@/views/About.vue";
 
 const routes = [
@@ -87,6 +91,15 @@ const routes = [
                 }
             },
             {
+                path: "imones",
+                name: "provider-list",
+                component: Providers,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Visos įmonės'
+                }
+            },
+            {
                 path: "pranesimai",
                 name: "ticket-list",
                 component: Tickets,
@@ -149,6 +162,55 @@ const routes = [
                     title: 'Naujas puslapis'
                 }
             },
+
+
+            {
+                path: 'imones/kategorijos',
+                name: 'provider-cat-list',
+                component: ProviderCats,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Paslaugų tiekėjų kategorijų sąrašas'
+                }
+            },
+            {
+                path: 'imones/kategorijos/naujas',
+                name: 'provider-cat-new',
+                component: ProviderCatForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Pridėti paslaugų tiekėjų kategoriją'
+                }
+            },
+            {
+                path: 'imones/kategorijos/:id/',
+                name: 'provider-cat-edit',
+                component: ProviderCatForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Redaguoti kategoriją'
+                }
+            },
+            {
+                path: 'imones/:id/redaguoti',
+                name: 'provider-edit',
+                component: ProviderForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Redaguoti paslaugų tiekėją'
+                }
+            },
+            {
+                path: 'imones/naujas',
+                name: 'provider-new',
+                component: ProviderForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Naujas paslaugų tiekėjas'
+                }
+            },
+
+
             {
                 path: "table",
                 name: "Table List",

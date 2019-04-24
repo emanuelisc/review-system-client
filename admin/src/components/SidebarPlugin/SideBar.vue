@@ -6,18 +6,12 @@
     :style="sidebarStyle"
   >
     <div class="logo">
-      <a href="#" class="simple-text logo-mini">
-        <div class="logo-img">
-          <img :src="imgLogo" alt="" />
-        </div>
-      </a>
 
       <a
-        href="https://www.creative-tim.com/product/vue-material-dashboard"
-        target="_blank"
+        href="/"
         class="simple-text logo-normal"
       >
-        {{ title }}
+        Atsiliepimai Admin
       </a>
     </div>
     <div class="sidebar-wrapper">
@@ -93,5 +87,10 @@ export default {
   .nav-mobile-menu {
     display: none;
   }
+}
+
+.sidebar .logo .simple-text{
+    padding-left: 20px!important;
+    padding-right: 15px!important;
 }
 </style>

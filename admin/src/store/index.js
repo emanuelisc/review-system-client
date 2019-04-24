@@ -3,6 +3,7 @@ import Vue from 'vue';
 import auth from './modules/auth';
 import users from './modules/users';
 import pages from './modules/pages';
+import providers from './modules/providers';
 import tickets from './modules/tickets';
 
 // Load Vuex
@@ -14,6 +15,7 @@ export default new Vuex.Store({
         auth,
         users,
         pages,
-        tickets
+        tickets,
+        providers
     }
 })

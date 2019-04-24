@@ -83,8 +83,8 @@ export default {
       axios
         .get("page/categories/")
         .then(response => {
-          this.searched = response.data;
-          this.fetchPageCats(response.data);
+          this.searched = response.data.results;
+          this.fetchPageCats(response.data.results);
         })
         .catch(err => {
           this.notifyVue("Nepavyko gauti kategorijų sąrašo.", "danger");

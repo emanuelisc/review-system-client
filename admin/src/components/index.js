@@ -16,6 +16,10 @@ import PageForm from "./Pages/PageForm.vue";
 import TicketForm from "./Tickets/TicketForm.vue";
 import PageCatForm from "./Pages/Categories/PageCatForm.vue";
 import PageCatList from "./Pages/Categories/PageCatList.vue";
+import ProviderList from "./Providers/ProviderList.vue";
+import ProviderForm from "./Providers/ProviderForm.vue";
+import ProviderCatForm from "./Providers/Categories/ProviderCatForm.vue";
+import ProviderCatList from "./Providers/Categories/ProviderCatList.vue";
 
 export {
   ChartCard,
@@ -32,5 +36,9 @@ export {
   TicketList,
   TicketForm,
   PageCatForm,
-  PageCatList
+  PageCatList,
+  ProviderList,
+  ProviderForm,
+  ProviderCatForm,
+  ProviderCatList
 };
