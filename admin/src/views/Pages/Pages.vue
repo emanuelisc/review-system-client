@@ -3,7 +3,7 @@
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
         <md-button @click="goNew()" class="md-raised md-primary">Naujas puslapis</md-button>
-        <md-button @click="categories()" class="md-raised md-primary">Puslapių ketegorijos</md-button>
+        <md-button @click="categories()" class="md-raised md-primary">Puslapių kategorijos</md-button>
         <md-card>
           <md-card-content>
             <page-list table-header-color="green"></page-list>

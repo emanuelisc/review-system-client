@@ -2,11 +2,11 @@
   <div class="content">
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
-        <md-button @click="goNew()" class="md-raised md-primary">Naujas paslaugų tiekėjas</md-button>
-        <md-button @click="categories()" class="md-raised md-primary">Paslaugų tiekėjų kategorijos</md-button>
+        <md-button @click="goBack()" class="md-raised md-primary">Atgal į atsiliepimų sąrašą</md-button>
+        <md-button @click="goNew()" class="md-raised md-primary">Naujas tagas</md-button>
         <md-card>
           <md-card-content>
-            <provider-list table-header-color="green"></provider-list>
+            <review-tag-list table-header-color="green"></review-tag-list>
           </md-card-content>
         </md-card>
       </div>
@@ -15,21 +15,21 @@
 </template>
 
 <script>
-import { ProviderList } from "@/components";
+import { ReviewTagList } from "@/components";
 
 export default {
   components: {
-    ProviderList
+    ReviewTagList
   },
   methods: {
     goNew() {
       this.$router.push({
-        name: "provider-new"
+        name: "review-tag-new"
       });
     },
-    categories() {
+    goBack() {
       this.$router.push({
-        name: "provider-cat-list"
+        name: "review-list"
       });
     }
   }

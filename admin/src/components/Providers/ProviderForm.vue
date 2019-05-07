@@ -286,7 +286,7 @@ export default {
       axios
         .get("provider/categories/")
         .then(res => {
-          this.cats = res.data;
+          this.cats = res.data.results;
           this.fetchProviderCats(this.cats);
         })
         .catch(err => {

@@ -6,57 +6,56 @@
           <div class="md-layout-item md-small-size-100 md-size-100">
             <md-field>
               <label>Pavadinimas</label>
-              <md-input type="text" v-model="page.title" name="title"></md-input>
+              <md-input type="text" v-model="review.title" name="title"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-100">
             <md-field>
               <label class="editor-label">Tekstas</label>
-              <ckeditor :editor="editor" v-model="page.text" :config="editorConfig"></ckeditor>
+              <ckeditor :editor="editor" v-model="review.description" :config="editorConfig"></ckeditor>
             </md-field>
           </div>
-          <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <label>Slug (nuorodos tekstas)</label>
-              <md-input type="text" v-model="page.slug" name="slug"></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-datepicker v-model="page.date" name="date" md-immediately>
-              <label>Sukūrimo data</label>
-            </md-datepicker>
-          </div>
-          <div class="md-layout-item md-size-50">
-            <md-table>
+          <div class="md-layout-item md-size-50 kategorija">
+            <md-table class="md-scrollbar">
               <md-table-row>
                 <md-table-cell :key="cat.id" v-for="cat in cats">
-                  <input type="checkbox" :id="cat.name" :value="cat.id" v-model="selected">
+                  <input type="checkbox" :id="cat.name" :value="cat" v-model="selected">
                   <label :for="cat.name">{{ cat.name }}</label>
                 </md-table-cell>
               </md-table-row>
             </md-table>
           </div>
+          <div class="md-layout-item md-size-50 kategorija">
+            <md-field>
+                <label>Reitingas</label>
+                <md-input v-model="review.rating" type="number"></md-input>
+            </md-field>
+          </div>
+          <!-- <div class="md-layout-item md-size-50">
+            <md-chips class="md-primary" md-limit=7 v-model="tags" md-placeholder="Pridėti tagų..."></md-chips>
+          </div> -->
+
           <div class="md-layout-item md-size-100">
             <md-field maxlength="5">
               <label>Nuotrauka</label>
-              <a class="img" :href="page.image" target="_blank">Nuoroda</a>
+              <a class="img" :href="review.image" target="_blank">Nuoroda</a>
               <input @change="onFileSelected" type="file" accept="image/*" id="file-input">
             </md-field>
           </div>
           <div class="md-layout-item md-size-50 text-left">
             <md-button
-              v-if="this.$route.name != 'page-new'"
+              v-if="this.$route.name != 'review-new'"
               @click="onDelete()"
               class="md-raised md-danger"
-            >Pašalinti puslapį</md-button>
+            >Pašalinti atsiliepimą</md-button>
           </div>
           <div class="md-layout-item md-size-50 text-right">
             <md-button
-              v-if="this.$route.name != 'page-new'"
+              v-if="this.$route.name != 'review-new'"
               @click="onUpdate()"
               class="md-raised md-success"
             >Atnaujinti informaciją</md-button>
-            <md-button v-else @click="onCreate()" class="md-raised md-success">Sukurti puslapį</md-button>
+            <md-button v-else @click="onCreate()" class="md-raised md-success">Sukurti atsiliepimą</md-button>
           </div>
         </div>
       </md-card-content>
@@ -66,17 +65,21 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+ import VueHashtagTextarea from 'vue-hashtag-textarea'
 import axios from "@/plugins/axios";
 export default {
-  name: "page-form",
+  name: "review-form",
   props: {
     dataBackgroundColor: {
       type: String,
       default: ""
     }
   },
+  components: {
+      VueHashtagTextarea,
+    },
   methods: {
-    ...mapActions(["getPage", "fetchPageCats", "addPage"]),
+    ...mapActions(["getReview", "fetchReviewCats", "addReview"]),
     notifyVue(message, type) {
       this.$notify({
         message: message,
@@ -90,35 +93,43 @@ export default {
       this.selectedFile = event.target.files[0];
     },
     onDelete() {
-      var r = confirm("Ar tikrai pašalinti puslapį?");
+      var r = confirm("Ar tikrai pašalinti atsiliepimą?");
       if (r == true) {
         this.$store
-          .dispatch("deletePage", this.$route.params.id)
-          .then(() => this.$router.push("/puslapiai"))
+          .dispatch("deleteReview", this.$route.params.id)
+          .then(() => this.$router.push("/atsiliepimai"))
           .catch(err =>
-            this.notifyVue("Nepavyko pašalinti puslapio.", "danger")
+            this.notifyVue("Nepavyko pašalinti atsiliepimą.", "danger")
           );
       }
     },
+    getCatIds(categories){
+        var newCats = [];
+        for (var i = 0; i < categories.length; i++) { 
+            newCats.push(categories[i].id);
+        }
+        return newCats;
+    },
     onUpdate() {
       var object = {};
-      object["title"] = this.page.title;
-      object["text"] = this.page.text;
-      object["categories"] = this.selected;
-      object["slug"] = this.page.slug;
+      object["title"] = this.review.title;
+      object["description"] = this.review.description;
+      object["categories"] = this.getCatIds(this.selected);
+      object["user"] = this.review.user;
+      object["rating"] = this.review.rating;
       var form_data = new FormData();
-      form_data.append("title", this.page.title);
+      form_data.append("title", this.review.title);
       if (this.selectedFile) {
         form_data.append("image", this.selectedFile, this.selectedFile.name);
       }
       axios
-        .patch(`page/pages/${this.$route.params.id}/`, object)
+        .patch(`review/reviews/${this.$route.params.id}/`, object)
         .then(response => {
           this.$store
-            .dispatch("updatePage", { id: response.data.id, param: form_data })
+            .dispatch("updateReview", { id: response.data.id, param: form_data })
             .then(() =>
               this.$router.push({
-                name: "page-list"
+                name: "review-list"
               })
             )
             .catch(err => this.notifyVue("Operacija nepavyko", "danger"));
@@ -127,24 +138,24 @@ export default {
     },
     onCreate() {
       var object = {};
-      object["title"] = this.page.title;
-      object["text"] = this.page.text;
-      object["slug"] = this.page.slug;
-      object["categories"] = this.selected;
+      object["title"] = this.review.title;
+      object["description"] = this.review.description;
+      object["categories"] = this.getCatIds(this.selected);
+      object["rating"] = this.review.rating;
       var form_data = new FormData();
-      form_data.append("title", this.page.title);
+      form_data.append("title", this.review.title);
       if (this.selectedFile) {
         form_data.append("image", this.selectedFile, this.selectedFile.name);
       }
       axios
-        .post("page/pages/", object)
+        .post("review/reviews/", object)
         .then(response => {
-          this.addPage(response.data);
+          this.addReview(response.data);
           this.$store
-            .dispatch("updatePage", { id: response.data.id, param: form_data })
+            .dispatch("updateReview", { id: response.data.id, param: form_data })
             .then(() =>
               this.$router.push({
-                name: "page-list"
+                name: "review-list"
               })
             )
             .catch(err => this.notifyVue("Operacija nepavyko", "danger"));
@@ -153,23 +164,23 @@ export default {
     },
     getData() {
       axios
-        .get(`page/pages/${this.$route.params.id}/`)
+        .get(`review/reviews/${this.$route.params.id}/`)
         .then(response => {
-          this.page = response.data;
+          this.review = response.data;
           this.selected = response.data.categories;
-          this.getPage(response.data);
+          this.getReview(response.data);
         })
         .catch(err => {
-          this.notifyVue("Nepavyko gauti puslapio informacijos.", "danger");
+          this.notifyVue("Nepavyko gauti atsiliepimo informacijos.", "danger");
           console.log(err);
         });
     },
     getCats() {
       axios
-        .get("page/categories/")
+        .get("review/categories/")
         .then(res => {
           this.cats = res.data.results;
-          this.fetchPageCats(this.cats);
+          this.fetchReviewCats(this.cats);
         })
         .catch(err => {
           this.notifyVue("Nepavyko gauti kategorijų sąrašo.", "danger");
@@ -177,28 +188,29 @@ export default {
         });
     }
   },
-  computed: mapGetters(["onePage", "allPageCategories"]),
+  computed: mapGetters(["oneReview", "allReviewCategories"]),
   created() {
-    if (this.$route.name != "page-new") {
+    if (this.$route.name != "review-new") {
       this.getData();
-      this.page = this.onePage;
-      this.selected = this.onePage.categories;
+      this.review = this.oneReview;
+      this.selected = this.oneReview.categories;
     }
-    if (this.allPageCategories.length <= 0) {
+    if (this.allReviewCategories.length <= 0) {
       this.getCats();
     }
-    this.cats = this.allPageCategories;
+    this.cats = this.allReviewCategories;
   },
   data() {
     return {
       cats: [],
-      page: {},
+      review: {},
       selectedFile: null,
       editor: ClassicEditor,
       editorConfig: {
         // The configuration of the rich-text editor.
       },
-      selected: []
+      selected: [],
+      tags: []
     };
   }
 };
@@ -247,5 +259,14 @@ input[type="file" i] {
 .editor-label {
   position: absolute !important;
   top: -10px !important;
+}
+
+.kategorija .md-table-content.md-scrollbar{
+    max-height: 200px;
+}
+
+.kategorija .md-table-content.md-scrollbar td{
+    width: 100%;
+    display: block;
 }
 </style>

@@ -18,7 +18,7 @@ const actions = {
             commit('auth_request')
             axios({ url: 'user/token/', data: user, method: 'POST' })
                 .then(resp => {
-                    const token = resp.data.token
+                    const token = "Token " + resp.data.token
                     localStorage.setItem('token', token)
                     axios.defaults.headers.common['Authorization'] = token
                     commit('auth_success', resp.data)
@@ -36,7 +36,7 @@ const actions = {
             commit('auth_request')
             axios({ url: 'user/create/', data: user, method: 'POST' })
                 .then(resp => {
-                    const token = resp.data.token
+                    const token = "Token " + resp.data.token
                     const user = resp.data.user
                     localStorage.setItem('token', token)
                     axios.defaults.headers.common['Authorization'] = token

@@ -32,7 +32,7 @@ export default {
         .catch(err => this.notifyVue("top", "center"));
     },
     checkPermissions() {
-      if (!this.$store.getters.me.is_staff || !this.$store.getters.me.is_active) {
+      if (!this.$store.getters.me.is_staff) {
         this.$store.dispatch("logout").then(() => {
           this.$router.push("/login");
           this.notifyPerm("top", "center");

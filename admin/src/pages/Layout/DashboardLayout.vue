@@ -4,9 +4,13 @@
 
     <side-bar v-if="isLoggedIn">
       <mobile-menu slot="content"></mobile-menu>
-      <sidebar-link to="/dashboard">
+      <sidebar-link to="/pagrindinis">
         <md-icon>dashboard</md-icon>
         <p>Pagrindinis</p>
+      </sidebar-link>
+     <sidebar-link to="/atsiliepimai">
+        <md-icon>library_books</md-icon>
+        <p>Atsiliepimai</p>
       </sidebar-link>
       <sidebar-link to="/vartotojai">
         <md-icon>person</md-icon>

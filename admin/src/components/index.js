@@ -21,6 +21,14 @@ import ProviderForm from "./Providers/ProviderForm.vue";
 import ProviderCatForm from "./Providers/Categories/ProviderCatForm.vue";
 import ProviderCatList from "./Providers/Categories/ProviderCatList.vue";
 
+import ReviewList from "./Reviews/ReviewList.vue";
+import ReviewForm from "./Reviews/ReviewForm.vue";
+import ReviewInfo from "./Reviews/ReviewInfo.vue";
+import ReviewCatForm from "./Reviews/Categories/ReviewCatForm.vue";
+import ReviewCatList from "./Reviews/Categories/ReviewCatList.vue";
+import ReviewTagForm from "./Reviews/Tags/ReviewTagForm.vue";
+import ReviewTagList from "./Reviews/Tags/ReviewTagList.vue";
+
 export {
   ChartCard,
   NavTabsCard,
@@ -40,5 +48,12 @@ export {
   ProviderList,
   ProviderForm,
   ProviderCatForm,
-  ProviderCatList
+  ProviderCatList,
+  ReviewList,
+  ReviewForm,
+  ReviewCatForm,
+  ReviewCatList,
+  ReviewTagForm,
+  ReviewTagList,
+  ReviewInfo,
 };

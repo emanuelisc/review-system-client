@@ -21,14 +21,22 @@ import ProviderCats from "@/views/Providers/Categories/ProviderCats";
 import ProviderCatForm from "@/views/Providers/Categories/ProviderCatForm";
 import About from "@/views/About.vue";
 
+import Reviews from "@/views/Reviews/Reviews";
+import ReviewInfo from "@/views/Reviews/ReviewInfo";
+import ReviewForm from "@/views/Reviews/ReviewForm";
+import ReviewCats from "@/views/Reviews/Categories/ReviewCats";
+import ReviewCatForm from "@/views/Reviews/Categories/ReviewCatForm";
+import ReviewTags from "@/views/Reviews/Tags/ReviewTags";
+import ReviewTagForm from "@/views/Reviews/Tags/ReviewTagForm";
+
 const routes = [
     {
         path: "/",
         component: DashboardLayout,
-        redirect: "/dashboard",
+        redirect: "/pagrindinis",
         children: [
             {
-                path: "dashboard",
+                path: "pagrindinis",
                 name: "Dashboard",
                 component: Dashboard,
                 meta: {
@@ -88,6 +96,24 @@ const routes = [
                 meta: {
                     requiresAuth: true,
                     title: 'Visi puslapiai'
+                }
+            },
+            {
+                path: "atsiliepimai",
+                name: "review-list",
+                component: Reviews,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Visi atsiliepimai'
+                }
+            },
+            {
+                path: "atsiliepimai/:id",
+                name: "review-info",
+                component: ReviewInfo,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Atsiliepimo informacija'
                 }
             },
             {
@@ -162,8 +188,78 @@ const routes = [
                     title: 'Naujas puslapis'
                 }
             },
-
-
+            {
+                path: 'atsiliepimai/kategorijos',
+                name: 'review-cat-list',
+                component: ReviewCats,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Atsiliepimų kategorijų sąrašas'
+                }
+            },
+            {
+                path: 'atsiliepimai/kategorijos/naujas',
+                name: 'review-cat-new',
+                component: ReviewCatForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Pridėti kategoriją'
+                }
+            },
+            {
+                path: 'atsiliepimai/kategorijos/:id/',
+                name: 'review-cat-edit',
+                component: ReviewCatForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Redaguoti kategoriją'
+                }
+            },
+            {
+                path: 'atsiliepimai/tagai',
+                name: 'review-tag-list',
+                component: ReviewTags,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Atsiliepimų tagų sąrašas'
+                }
+            },
+            {
+                path: 'atsiliepimai/tagai/naujas',
+                name: 'review-tag-new',
+                component: ReviewTagForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Pridėti naują tagą'
+                }
+            },
+            {
+                path: 'atsiliepimai/tagai/:id/',
+                name: 'review-tag-edit',
+                component: ReviewTagForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Redaguoti tagą'
+                }
+            },
+            {
+                path: 'atsiliepimai/:id/redaguoti',
+                name: 'review-edit',
+                component: ReviewForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Redaguoti atsiliepimą'
+                }
+            },
+            {
+                path: 'atsiliepimai/naujas',
+                name: 'review-new',
+                component: ReviewForm,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Naujas atsiliepimas'
+                }
+            },
             {
                 path: 'imones/kategorijos',
                 name: 'provider-cat-list',
