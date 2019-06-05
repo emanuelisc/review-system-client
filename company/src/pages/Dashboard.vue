@@ -8,7 +8,7 @@
       </md-card-header>
 
       <md-card-content>
-        Norėdami atlikti veiksmus, pasirinkite dešinėje pusėje.
+        Norėdami atlikti veiksmus, pasirinkite kairėje pusėje.
       </md-card-content>
 
     </md-card>

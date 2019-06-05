@@ -164,7 +164,7 @@ export default {
       if (r == true) {
         this.$store
           .dispatch("deleteProvider", this.$route.params.id)
-          .then(() => this.$router.push("/imones"))
+          .then(() => this.$router.push("/admin/imones"))
           .catch(err =>
             this.notifyVue("Nepavyko pašalinti paslaugų tiekėjo.", "danger")
           );

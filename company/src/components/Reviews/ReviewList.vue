@@ -16,10 +16,7 @@
       <md-table-row slot="md-table-row" slot-scope="{ item }" class="conditional">
         <md-table-cell md-label="ID" md-numeric>{{ item.id }}</md-table-cell>
         <md-table-cell md-label="Pavadinimas" md-sort-by="title">{{ item.title }}</md-table-cell>
-        <md-table-cell
-          md-label="Data"
-          md-sort-by="date"
-        >{{ item.date }}</md-table-cell>
+        <md-table-cell md-label="Data" md-sort-by="date">{{ item.date }}</md-table-cell>
         <md-table-cell md-label="Kategorijos">
           <md-list>
             <!-- <md-list-item :key="category" v-for="category in item.categories"><span :key="cat.id" v-for="cat in cats" v-if="cat.id === category">{{ cat.name }}</span></md-list-item> -->
@@ -28,20 +25,13 @@
               v-for="cat in cats.filter(function(cate) {
                 return item.categories.includes(cate.id);
                 })"
-            >
+            >   
               <h6>{{ cat.name }}</h6>
             </md-list-item>
           </md-list>
         </md-table-cell>
-                <md-table-cell md-label="Reitingas" md-numeric>{{ item.rating }}</md-table-cell>
-        <md-table-cell md-label="Patvirtintas?" class="condition">
-          <span v-if="item.is_auto_confirmed" class="ok">+</span>
-          <span v-else>-</span>
-        </md-table-cell>
+        <md-table-cell md-label="Reitingas" md-numeric>{{ item.rating }}</md-table-cell>
         <md-table-cell md-label="Veiksmai">
-          <md-button @click="details(item.id)" class="md-just-icon md-simple md-primary fixed-btn">
-            <md-icon>edit</md-icon>
-          </md-button>
           <md-button @click="info(item.id)" class="md-just-icon md-simple md-primary fixed-btn">
             <md-icon>info</md-icon>
           </md-button>
@@ -91,7 +81,7 @@ export default {
         params: { id }
       });
     },
-        info(id) {
+    info(id) {
       this.$router.push({
         name: "review-info",
         params: { id }

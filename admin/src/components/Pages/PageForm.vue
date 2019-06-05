@@ -94,7 +94,7 @@ export default {
       if (r == true) {
         this.$store
           .dispatch("deletePage", this.$route.params.id)
-          .then(() => this.$router.push("/puslapiai"))
+          .then(() => this.$router.push("/admin/puslapiai"))
           .catch(err =>
             this.notifyVue("Nepavyko pašalinti puslapio.", "danger")
           );

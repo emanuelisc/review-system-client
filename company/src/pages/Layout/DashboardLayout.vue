@@ -8,25 +8,29 @@
         <md-icon>dashboard</md-icon>
         <p>Pagrindinis</p>
       </sidebar-link>
-     <sidebar-link to="/atsiliepimai">
+      <sidebar-link to="/profilis">
+        <md-icon>business</md-icon>
+        <p>Profilis</p>
+      </sidebar-link>
+      <sidebar-link to="/atsiliepimai">
         <md-icon>library_books</md-icon>
         <p>Atsiliepimai</p>
       </sidebar-link>
       <sidebar-link to="/vartotojai">
         <md-icon>person</md-icon>
-        <p>Vartotojai</p>
+        <p>Administratoriai</p>
       </sidebar-link>
-      <sidebar-link to="/imones">
-        <md-icon>business</md-icon>
-        <p>Paslaugų tiekėjai</p>
+      <sidebar-link to="/statistika">
+        <md-icon>bar_chart</md-icon>
+        <p>Statistika</p>
       </sidebar-link>
-      <sidebar-link to="/puslapiai">
-        <md-icon>library_books</md-icon>
-        <p>Puslapiai</p>
+      <sidebar-link to="/programuotojams">
+        <md-icon>border_inner</md-icon>
+        <p>Programuotojams</p>
       </sidebar-link>
       <sidebar-link to="/pranesimai">
         <md-icon>notification_important</md-icon>
-        <p>Pranešimai</p>
+        <p>Pranešti apie problemą</p>
       </sidebar-link>
       <!-- <sidebar-link to="/table">
         <md-icon>content_paste</md-icon>
@@ -35,7 +39,7 @@
       <!-- <sidebar-link to="/typography">
         <md-icon>library_books</md-icon>
         <p>Typography</p>
-      </sidebar-link> -->
+      </sidebar-link>-->
       <!-- <sidebar-link to="/icons">
         <md-icon>bubble_chart</md-icon>
         <p>Icons</p>

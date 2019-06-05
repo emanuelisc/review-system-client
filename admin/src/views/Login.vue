@@ -32,13 +32,36 @@ export default {
         .catch(err => this.notifyVue("top", "center"));
     },
     checkPermissions() {
-      if (!this.$store.getters.me.is_staff) {
-        this.$store.dispatch("logout").then(() => {
-          this.$router.push("/login");
-          this.notifyPerm("top", "center");
-        });
+      if (this.$route.meta.permission === "Staff") {
+        if (!this.$store.getters.me.is_staff) {
+          this.$store.dispatch("logout").then(() => {
+            this.$router.push("/admin/login");
+            this.notifyPerm("top", "center");
+          });
+        } else {
+          this.$router.push("/admin/");
+        }
+      } else if (this.$route.meta.permission === "Company") {
+        if (!this.$store.getters.me.is_company) {
+          this.$store.dispatch("logout").then(() => {
+            this.$router.push("/company/login");
+            this.notifyPerm("top", "center");
+          });
+        } else {
+          this.$router.push("/company/");
+        }
       } else {
-        this.$router.push("/");
+        if (
+          this.$store.getters.me.is_company ||
+          this.$store.getters.me.is_staff
+        ) {
+          this.$store.dispatch("logout").then(() => {
+            this.$router.push("/login");
+            this.notifyPerm("top", "center");
+          });
+        } else {
+          this.$router.push("/");
+        }
       }
     },
     notifyVue(verticalAlign, horizontalAlign) {
@@ -49,6 +72,7 @@ export default {
         verticalAlign: verticalAlign,
         type: "danger"
       });
+      NProgress.done();
     },
     notifyPerm(verticalAlign, horizontalAlign) {
       this.$notify({
@@ -58,6 +82,7 @@ export default {
         verticalAlign: verticalAlign,
         type: "danger"
       });
+      NProgress.done();
     }
   },
   mounted: function() {

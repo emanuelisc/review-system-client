@@ -6,6 +6,8 @@ import Typography from "@/pages/Typography.vue";
 import Icons from "@/pages/Icons.vue";
 import Notifications from "@/pages/Notifications.vue";
 import Login from "@/views/Login.vue";
+import Register from "@/views/Register.vue";
+import AddProvider from "@/views/AddProvider.vue";
 import Users from "@/views/Users/Users.vue";
 import UserDetails from "@/views/Users/UserDetails.vue";
 import UserForm from "@/views/Users/UserForm.vue";
@@ -341,8 +343,18 @@ const routes = [
             },
             {
                 path: "login",
-                name: "Login",
+                name: "login",
                 component: Login
+            },
+            {
+                path: "registruotis",
+                name: "register",
+                component: Register
+            },
+            {
+                path: "naujas",
+                name: "naujas",
+                component: AddProvider
             },
             // {
             //     path: "register",

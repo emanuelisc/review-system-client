@@ -10,7 +10,9 @@
       <div class="text-center mt-4">
         <button class="btn btn-indigo" type="submit">Prisijungti</button>
       </div>
+          <span class="span-register">Neturite dar paskyros? <router-link :to="{ name: 'register'}">Registruotis</router-link></span>
     </form>
+
   </div>
 </template>
 
@@ -72,6 +74,14 @@ export default {
 <style scoped>
 .text-center {
   text-align: center !important;
+}
+
+.span-register{
+        text-align: center;
+    width: 100%;
+    display: block;
+    position: relative;
+    top: 11px;
 }
 
 form {

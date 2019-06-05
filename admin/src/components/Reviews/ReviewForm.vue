@@ -25,15 +25,41 @@
               </md-table-row>
             </md-table>
           </div>
-          <div class="md-layout-item md-size-50 kategorija">
+          <div
+            v-if="this.$route.name != 'naujas-atsiliepimas' | this.$route.name != 'atsiliepimai-redaguoti'"
+            class
+          >
+            <!-- <md-field>
+              <label>Reitingas</label>
+              <md-input v-model="review.rating" type="number"></md-input>
+            </md-field>-->
+          </div>
+
+          <div v-else-if="this.$route.name != 'atsiliepimai-redaguoti'" class>
+            <!-- <md-field>
+              <label>Reitingas</label>
+              <md-input v-model="review.rating" type="number"></md-input>
+            </md-field>-->
+          </div>
+
+          <div v-else class="md-layout-item md-size-50 kategorija">
             <md-field>
-                <label>Reitingas</label>
-                <md-input v-model="review.rating" type="number"></md-input>
+              <label>Reitingas</label>
+              <md-input v-model="review.rating" type="number"></md-input>
+            </md-field>
+          </div>
+
+          <div
+            v-if="this.$route.name == 'naujas-atsiliepimas'"
+            class="md-layout-item md-size-50 kategorija"
+          >
+            <md-field>
+              <h5>Norėdami sukurti atsiliepimą paslaugų tiekėjui, nueikite į jo profilį ir spauskite, Sukurti atsiliepimą</h5>
             </md-field>
           </div>
           <!-- <div class="md-layout-item md-size-50">
             <md-chips class="md-primary" md-limit=7 v-model="tags" md-placeholder="Pridėti tagų..."></md-chips>
-          </div> -->
+          </div>-->
 
           <div class="md-layout-item md-size-100">
             <md-field maxlength="5">
@@ -44,14 +70,14 @@
           </div>
           <div class="md-layout-item md-size-50 text-left">
             <md-button
-              v-if="this.$route.name != 'review-new'"
+              v-if="this.$route.name != 'review-new' && this.$route.name != 'naujas-atsiliepimas'"
               @click="onDelete()"
               class="md-raised md-danger"
             >Pašalinti atsiliepimą</md-button>
           </div>
           <div class="md-layout-item md-size-50 text-right">
             <md-button
-              v-if="this.$route.name != 'review-new'"
+              v-if="this.$route.name != 'review-new' && this.$route.name != 'naujas-atsiliepimas'"
               @click="onUpdate()"
               class="md-raised md-success"
             >Atnaujinti informaciją</md-button>
@@ -65,7 +91,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
- import VueHashtagTextarea from 'vue-hashtag-textarea'
+import VueHashtagTextarea from "vue-hashtag-textarea";
 import axios from "@/plugins/axios";
 export default {
   name: "review-form",
@@ -76,8 +102,8 @@ export default {
     }
   },
   components: {
-      VueHashtagTextarea,
-    },
+    VueHashtagTextarea
+  },
   methods: {
     ...mapActions(["getReview", "fetchReviewCats", "addReview"]),
     notifyVue(message, type) {
@@ -95,20 +121,33 @@ export default {
     onDelete() {
       var r = confirm("Ar tikrai pašalinti atsiliepimą?");
       if (r == true) {
-        this.$store
-          .dispatch("deleteReview", this.$route.params.id)
-          .then(() => this.$router.push("/atsiliepimai"))
-          .catch(err =>
-            this.notifyVue("Nepavyko pašalinti atsiliepimą.", "danger")
-          );
+        if (this.$route.name === "atsiliepimai-redaguoti") {
+          axios
+            .delete(`review/reviews/${this.$route.params.id}/`)
+            .then(response => {
+              this.$router.push({
+                name: "user-review"
+              });
+            })
+            .catch(err => this.notifyVue("Operacija nepavyko", "danger"));
+        } else {
+          this.$store
+            .dispatch("deleteReview", this.$route.params.id)
+            .then(() => {
+              this.$router.push("/admin/atsiliepimai");
+            })
+            .catch(err =>
+              this.notifyVue("Nepavyko pašalinti atsiliepimą.", "danger")
+            );
+        }
       }
     },
-    getCatIds(categories){
-        var newCats = [];
-        for (var i = 0; i < categories.length; i++) { 
-            newCats.push(categories[i].id);
-        }
-        return newCats;
+    getCatIds(categories) {
+      var newCats = [];
+      for (var i = 0; i < categories.length; i++) {
+        newCats.push(categories[i].id);
+      }
+      return newCats;
     },
     onUpdate() {
       var object = {};
@@ -119,6 +158,7 @@ export default {
       object["rating"] = this.review.rating;
       var form_data = new FormData();
       form_data.append("title", this.review.title);
+      form_data.append("description", this.review.description);
       if (this.selectedFile) {
         form_data.append("image", this.selectedFile, this.selectedFile.name);
       }
@@ -126,12 +166,21 @@ export default {
         .patch(`review/reviews/${this.$route.params.id}/`, object)
         .then(response => {
           this.$store
-            .dispatch("updateReview", { id: response.data.id, param: form_data })
-            .then(() =>
-              this.$router.push({
-                name: "review-list"
-              })
-            )
+            .dispatch("updateReview", {
+              id: response.data.id,
+              param: form_data
+            })
+            .then(() => {
+              if (this.$route.name === "atsiliepimai-redaguoti") {
+                this.$router.push({
+                  name: "user-review"
+                });
+              } else {
+                this.$router.push({
+                  name: "review-list"
+                });
+              }
+            })
             .catch(err => this.notifyVue("Operacija nepavyko", "danger"));
         })
         .catch(err => this.notifyVue("Operacija nepavyko", "danger"));
@@ -141,23 +190,37 @@ export default {
       object["title"] = this.review.title;
       object["description"] = this.review.description;
       object["categories"] = this.getCatIds(this.selected);
+      if (this.$route.params.provider > 0) {
+        object["provider"] = parseInt(this.$route.params.provider);
+      }
       object["rating"] = this.review.rating;
       var form_data = new FormData();
       form_data.append("title", this.review.title);
+      form_data.append("description", this.review.description);
       if (this.selectedFile) {
         form_data.append("image", this.selectedFile, this.selectedFile.name);
       }
+      console.log(object);
       axios
         .post("review/reviews/", object)
         .then(response => {
           this.addReview(response.data);
           this.$store
-            .dispatch("updateReview", { id: response.data.id, param: form_data })
-            .then(() =>
-              this.$router.push({
-                name: "review-list"
-              })
-            )
+            .dispatch("updateReview", {
+              id: response.data.id,
+              param: form_data
+            })
+            .then(() => {
+              if (this.$route.name == "naujas-atsiliepimas") {
+                this.$router.push({
+                  name: "administravimas"
+                });
+              } else {
+                this.$router.push({
+                  name: "review-list"
+                });
+              }
+            })
             .catch(err => this.notifyVue("Operacija nepavyko", "danger"));
         })
         .catch(err => this.notifyVue("Operacija nepavyko", "danger"));
@@ -190,7 +253,10 @@ export default {
   },
   computed: mapGetters(["oneReview", "allReviewCategories"]),
   created() {
-    if (this.$route.name != "review-new") {
+    if (
+      this.$route.name != "review-new" &&
+      this.$route.name != "naujas-atsiliepimas"
+    ) {
       this.getData();
       this.review = this.oneReview;
       this.selected = this.oneReview.categories;
@@ -261,12 +327,12 @@ input[type="file" i] {
   top: -10px !important;
 }
 
-.kategorija .md-table-content.md-scrollbar{
-    max-height: 200px;
+.kategorija .md-table-content.md-scrollbar {
+  max-height: 200px;
 }
 
-.kategorija .md-table-content.md-scrollbar td{
-    width: 100%;
-    display: block;
+.kategorija .md-table-content.md-scrollbar td {
+  width: 100%;
+  display: block;
 }
 </style>

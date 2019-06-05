@@ -6,13 +6,15 @@ const state = {
     tags: [],
     review: {},
     category: {},
-    tag: {}
+    tag: {},
+    comments: {}
 };
 
 const getters = {
     allReviews: state => state.reviews,
     allReviewCategories: state => state.categories,
     allReviewTags: state => state.tags,
+    allComments: state => state.comments,
     oneReview: state => state.review,
     oneReviewCategory: state => state.category,
     oneReviewTag: state => state.tag
@@ -24,6 +26,9 @@ const actions = {
     },
     fetchReviewCats({ commit }, categories) {
         commit('setReviewCats', categories);
+    },
+    fetchComments({ commit }, comments) {
+        commit('setComments', comments);
     },
     fetchReviewTags({ commit }, tags) {
         commit('setReviewTags', tags);
@@ -40,6 +45,9 @@ const actions = {
     addReview({ commit }, review) {
         commit('newReview', review);
     },
+    addComment({ commit }, comment) {
+        commit('newComment', comment);
+    },
     addReviewCategory({ commit }, category) {
         commit('newReviewCategory', category);
     },
@@ -51,6 +59,12 @@ const actions = {
     }, id) {
         await axios.delete(`review/reviews/${id}/`);
         commit('removeReview', id);
+    },
+    async deleteComment({
+        commit
+    }, id) {
+        await axios.delete(`review/comments/${id}/`);
+        commit('removeComment', id);
     },
     async deleteReviewCategory({
         commit
@@ -89,17 +103,20 @@ const actions = {
 
 const mutations = {
     setReviews: (state, reviews) => (state.reviews = reviews),
+    setComments: (state, comments) => (state.comments = comments),
     setReviewCats: (state, categories) => (state.categories = categories),
     setReviewTags: (state, tags) => (state.tags = tags),
     getReview: (state, review) => (state.review = review),
     getReviewCategory: (state, category) => (state.category = category),
     getReviewTag: (state, tag) => (state.tag = tag),
     newReview: (state, review) => state.reviews.unshift(review),
+    newComment: (state, comment) => state.comments.unshift(comment),
     newReviewCategory: (state, category) => state.categories.unshift(category),
     newReviewTag: (state, tag) => state.tags.unshift(tag),
     removeReview: (state, id) => state.reviews = state.reviews.filter(review => review.id !== id),
     removeReviewCategory: (state, id) => state.categories = state.categories.filter(category => category.id !== id),
     removeReviewTag: (state, id) => state.tags = state.tags.filter(tag => tag.id !== id),
+    removeComment: (state, id) => state.comments = state.comments.filter(comment => comment.id !== id),
     updateReview: (state, updReview) => {
         const index = state.reviews.findIndex(review => review.id === updReview.id)
         if (index !== -1) {

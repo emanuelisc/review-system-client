@@ -138,6 +138,7 @@ export default {
         .get(`ticket/admin/${this.$route.params.id}/`)
         .then(response => {
           this.ticket = response.data;
+        //   console.log(this.ticket.user);
           this.getVartotojas(this.ticket.user);
           this.getTicket(response.data);
         })
@@ -147,16 +148,17 @@ export default {
         });
     },
     getVartotojas(id) {
-      axios
-        .get("user/admin/users/" + id + "/")
-        .then(response => {
-          this.user = response.data;
-          this.getUser(response.data);
-        })
-        .catch(err => {
-          this.notifyVue("Nepavyko gauti vartotojo informacijos.", "danger");
-          console.log(err);
-        });
+    //   console.log(id);
+    //   axios
+        // .get(`user/admin/users/${id}/`)
+        // .then(response => {
+        //   this.user = response.data;
+          this.getUser(id);
+        // })
+        // .catch(err => {
+        //   this.notifyVue("Nepavyko gauti vartotojo informacijos.", "danger");
+        //   cons/ole.log(err);
+        // });
     }
   },
   computed: mapGetters(["oneTicket", "oneUser"]),

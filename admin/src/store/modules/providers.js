@@ -5,7 +5,8 @@ const state = {
     categories: [],
     provider: {},
     category: {},
-    services: []
+    services: [],
+    service: {}
 };
 
 const getters = {
@@ -13,7 +14,8 @@ const getters = {
     allProviderCategories: state => state.categories,
     oneProvider: state => state.provider,
     oneProviderCategory: state => state.category,
-    providerServices: state => state.services
+    allServices: state => state.services,
+    oneService: state => state.service,
 };
 
 const actions = {
@@ -23,11 +25,14 @@ const actions = {
     fetchProviderCats({ commit }, categories) {
         commit('setProviderCats', categories);
     },
+    fetchServices({ commit }, services) {
+        commit('setServices', services);
+    },
     getProvider({ commit }, provider) {
         commit('getProvider', provider);
     },
-    getProviderServices({ commit }, services) {
-        commit('getProviderServices', services);
+    getServices({ commit }, service) {
+        commit('getService', service);
     },
     getProviderCategory({ commit }, category) {
         commit('getProviderCategory', category);
@@ -37,6 +42,9 @@ const actions = {
     },
     addProviderCategory({ commit }, category) {
         commit('newProviderCategory', category);
+    },
+    addService({ commit }, service) {
+        commit('newService', service);
     },
     async deleteProvider({
         commit
@@ -49,6 +57,12 @@ const actions = {
     }, id) {
         await axios.delete(`provider/categories/${id}/`);
         commit('removeCategory', id);
+    },
+    async deleteService({
+        commit
+    }, id) {
+        await axios.delete(`provider/services/${id}/`);
+        commit('removeService', id);
     },
     async filterProviders({
         commit
@@ -76,13 +90,16 @@ const actions = {
 const mutations = {
     setProviders: (state, providers) => (state.providers = providers),
     setProviderCats: (state, categories) => (state.categories = categories),
+    setServices: (state, services) => (state.services = services),
     getProvider: (state, provider) => (state.provider = provider),
-    getProviderServices: (state, services) => (state.services = services),
+    getServices: (state, services) => (state.services = services),
     getProviderCategory: (state, category) => (state.category = category),
     newProvider: (state, provider) => state.providers.unshift(provider),
     newProviderCategory: (state, category) => state.categories.unshift(category),
+    newService: (state, service) => state.services.unshift(service),
     removeProvider: (state, id) => state.providers = state.providers.filter(provider => provider.id !== id),
     removeProviderCategory: (state, id) => state.categories = state.categories.filter(category => category.id !== id),
+    removeService: (state, id) => state.services = state.services.filter(service => service.id !== id),
     updateProvider: (state, updProvider) => {
         const index = state.providers.findIndex(provider => provider.id === updProvider.id)
         if (index !== -1) {

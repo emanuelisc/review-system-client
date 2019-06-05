@@ -33,7 +33,13 @@ router.beforeEach((to, from, next) => {
             next()
             return
         }
-        next('/login')
+        if (store.getters.permissions === 'staff') {
+            next('/admin/login');
+        } else if (store.getters.permissions === 'company') {
+            next('/company/login');
+        } else{
+            next('/');
+        }
     } else {
         next()
     }
@@ -46,13 +52,13 @@ router.beforeResolve((to, from, next) => {
         NProgress.start()
     }
     next()
-  })
-  
-  router.afterEach((to, from) => {
+})
+
+router.afterEach((to, from) => {
     // Complete the animation of the route progress bar.
     NProgress.done()
-  })
-  
+})
+
 
 Vue.prototype.$Chartist = Chartist;
 
@@ -67,7 +73,7 @@ Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(Notifications);
-Vue.use( CKEditor );
+Vue.use(CKEditor);
 /* eslint-disable no-new */
 
 new Vue({

@@ -48,7 +48,7 @@ export default {
         // this.deleteUser(id);
         this.$store
           .dispatch("deleteUser", id)
-          .then(() => this.$router.push("/vartotojai"))
+          .then(() => this.$router.push("/admin/vartotojai"))
           .catch(err => this.notifyVue("top", "center"));
       }
     },

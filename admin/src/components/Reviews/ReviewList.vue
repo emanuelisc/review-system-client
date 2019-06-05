@@ -39,7 +39,7 @@
           <span v-else>-</span>
         </md-table-cell>
         <md-table-cell md-label="Veiksmai">
-          <md-button @click="details(item.id)" class="md-just-icon md-simple md-primary fixed-btn">
+          <md-button @click="details(item.id)" v-if="perm !== 'company'" class="md-just-icon md-simple md-primary fixed-btn">
             <md-icon>edit</md-icon>
           </md-button>
           <md-button @click="info(item.id)" class="md-just-icon md-simple md-primary fixed-btn">
@@ -114,8 +114,13 @@ export default {
       this.$emit("data");
     },
     getData() {
+        console.log(localStorage.getItem('permissions'));
+        var provider = "";
+        if(localStorage.getItem('permissions') === "company"){
+            provider = localStorage.getItem('provider')
+        }
       axios
-        .get("review/reviews/")
+        .get(`review/reviews/?providers=${provider}`)
         .then(response => {
           this.searched = response.data.results;
           this.fetchReviews(response.data.results);
@@ -145,6 +150,7 @@ export default {
     }
     this.searched = this.allReviews;
     this.cats = this.allReviewCategories;
+    this.perm = localStorage.getItem('permissions');
     // this.fetchReviews(this.searched);
   },
   props: {
@@ -158,7 +164,8 @@ export default {
     currentSortOrder: "asc",
     search: null,
     searched: [],
-    cats: {}
+    cats: {},
+    perm: ""
   })
 };
 </script>

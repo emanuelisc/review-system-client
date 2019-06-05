@@ -1,90 +1,20 @@
 <template>
-  <div class="content">
+  <div class="content admin">
     <div class="md-layout">
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-      >
-        <chart-card
-          :chart-data="dailySalesChart.data"
-          :chart-options="dailySalesChart.options"
-          :chart-type="'Line'"
-          data-background-color="blue"
-        >
-          <template slot="content">
-            <h4 class="title">Lankomumas</h4>
-            <!-- <p class="category">
-              <span class="text-success"
-                ><i class="fas fa-long-arrow-alt-up"></i> 55%
-              </span>
-              increase in today sales.
-            </p> -->
-          </template>
+      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
+        <md-card>
+          <md-card-header>
+            <div class="md-title">Sveiki atvykę</div>
+          </md-card-header>
 
-        </chart-card>
+          <md-card-content>Norėdami pradėti dirbti, pasirinkite vieną iš meniu punktų kairėje.</md-card-content>
+<!-- 
+          <md-card-actions>
+            <md-button>Action</md-button>
+            <md-button>Action</md-button>
+          </md-card-actions> -->
+        </md-card>
       </div>
-      <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
-      >
-        <stats-card data-background-color="orange">
-          <template slot="header">
-            <md-icon>content_copy</md-icon>
-          </template>
-
-          <template slot="content">
-            <p class="category">Atsiliepimų</p>
-            <h3 class="title">
-                150
-            </h3>
-          </template>
-
-        </stats-card>
-      </div>
-      <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
-      >
-        <stats-card data-background-color="red">
-          <template slot="header">
-            <md-icon>info_outline</md-icon>
-          </template>
-
-          <template slot="content">
-            <p class="category">Komentarų</p>
-            <h3 class="title">75</h3>
-          </template>
-
-        </stats-card>
-      </div>
-      <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
-      >
-        <stats-card data-background-color="blue">
-          <template slot="header">
-            <i class="fas fa-user"></i>
-          </template>
-
-          <template slot="content">
-            <p class="category">Vartotojų</p>
-            <h3 class="title">245</h3>
-          </template>
-
-        </stats-card>
-      </div>
-            <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
-      >
-        <stats-card data-background-color="green">
-          <template slot="header">
-            <i class="fas fa-building"></i>
-          </template>
-
-          <template slot="content">
-            <p class="category">Paslaugų tiekėjų</p>
-            <h3 class="title">245</h3>
-          </template>
-
-        </stats-card>
-      </div>
-
     </div>
   </div>
 </template>
@@ -126,8 +56,24 @@ export default {
             left: 0
           }
         }
-      },
+      }
     };
   }
 };
 </script>
+
+<style scoped>
+.md-title{
+    color: #fff;
+}
+</style>
+
+<style>
+.admin .md-title{
+    color: #fff!important;
+}
+
+.admin .md-card-content{
+    font-size: 22px!important;
+}
+</style>

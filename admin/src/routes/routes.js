@@ -6,6 +6,7 @@ import Typography from "@/pages/Typography.vue";
 import Icons from "@/pages/Icons.vue";
 import Notifications from "@/pages/Notifications.vue";
 import Login from "@/views/Login.vue";
+import Register from "@/views/Register.vue";
 import Users from "@/views/Users/Users.vue";
 import UserDetails from "@/views/Users/UserDetails.vue";
 import UserForm from "@/views/Users/UserForm.vue";
@@ -29,11 +30,178 @@ import ReviewCatForm from "@/views/Reviews/Categories/ReviewCatForm";
 import ReviewTags from "@/views/Reviews/Tags/ReviewTags";
 import ReviewTagForm from "@/views/Reviews/Tags/ReviewTagForm";
 
+import MainLayout from "@/views/layout/MainLayout";
+import Puslapis from "@/views/layout/Page";
+import Administration from "@/views/layout/Administration";
+import UserReviews from "@/views/layout/UserReviews";
+import MainDashboard from "@/pages/DashboardMain";
+import Kategorijos from "@/views/Reviews/Categories/ReviewCatsFront";
+import Imones from "@/views/Providers/ProviderListFront";
+import Imone from "@/views/Providers/ProviderFrontInfo";
+import ImoneKategorijos from "@/views/Providers/Categories/ProviderCatsFront";
+import Atsiliepimai from "@/views/Reviews/ReviewListFront";
+import Atsiliepimas from "@/views/Reviews/ReviewFrontInfo";
+import Naujas from "@/views/Reviews/ReviewFormFront";
+
 const routes = [
     {
         path: "/",
-        component: DashboardLayout,
+        component: MainLayout,
         redirect: "/pagrindinis",
+        children: [
+            {
+                path: "pagrindinis",
+                name: "pats-pagrindinis",
+                component: MainDashboard,
+                meta: {
+                    title: 'Pagrindinis'
+                }
+            },
+            {
+                path: "kategorijos",
+                name: "kategorijos",
+                component: Kategorijos,
+                meta: {
+                    title: 'Kategorijos'
+                }
+            },
+            {
+                path: "atsiliepimai",
+                name: "atsiliepimai",
+                component: Atsiliepimai,
+                meta: {
+                    title: 'Atsiliepimai'
+                }
+            },
+            {
+                path: "naujas",
+                name: "naujas-atsiliepimas",
+                component: Naujas,
+                meta: {
+                    title: 'Naujas atsiliepimas',
+                    provider: 0
+                }
+            },
+            {
+                path: 'atsiliepimai/:id',
+                name: 'atsiliepimai-vienas',
+                component: Atsiliepimas,
+                meta: {
+                    title: 'Atsiliepimas'
+                }
+            },
+            {
+                path: "imoniu-kategorijos",
+                name: "imoniu-kategorijos",
+                component: ImoneKategorijos,
+                meta: {
+                    title: 'Kategorijos'
+                }
+            },
+            {
+                path: "imones",
+                name: "imones",
+                component: Imones,
+                meta: {
+                    title: 'Paslaugų tiekėjai'
+                }
+            },
+            {
+                path: 'imones/:id',
+                name: 'imones-vienas',
+                component: Imone,
+                meta: {
+                    title: 'Paslaugų tiekėjai'
+                }
+            },
+            {
+                path: 'naudotojas/:id',
+                name: 'user-front-info',
+                component: UserDetails,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Naudotojo informacija'
+                }
+            },
+            {
+                path: 'puslapis/:id',
+                name: 'page',
+                component: Puslapis,
+                meta: {
+                    title: 'Puslapis'
+                }
+            },
+            {
+                path: "profilis",
+                name: "profilis",
+                component: Dashboard,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Pagrindinis'
+                }
+            },
+            {
+                path: "administravimas",
+                name: "administravimas",
+                component: Administration,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Administravimas'
+                }
+            },
+            {
+                path: "administravimas/atsiliepimai",
+                name: "user-review",
+                component: UserReviews,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Administravimas - Atsiliepimai'
+                }
+            },
+            {
+                path: "administravimas/atsiliepimai/:id",
+                name: "atsiliepimai-redaguoti",
+                component: Naujas,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Atsiliepimai - Redagavimas'
+                }
+            },
+        ]
+    },
+    {
+        path: "/company",
+        component: DashboardLayout,
+        redirect: "/company/pagrindinis",
+        children: [
+            {
+                path: "pagrindinis",
+                name: "company-main",
+                component: Dashboard,
+                meta: {
+                    requiresAuth: true,
+                    title: 'Pagrindinis'
+                }
+            },
+            {
+                path: "login",
+                name: "Login",
+                component: Login,
+                meta: {
+                    permission: 'Company'
+                }
+            },
+            {
+                path: "register",
+                name: "Register",
+                component: Register
+            },
+        ]
+    },
+    {
+        path: "/admin/",
+        component: DashboardLayout,
+        redirect: "/admin/pagrindinis",
         children: [
             {
                 path: "pagrindinis",
@@ -342,7 +510,10 @@ const routes = [
             {
                 path: "login",
                 name: "Login",
-                component: Login
+                component: Login,
+                meta: {
+                    permission: 'Staff'
+                }
             },
             // {
             //     path: "register",
